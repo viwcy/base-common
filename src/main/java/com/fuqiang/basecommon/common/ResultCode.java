@@ -17,13 +17,13 @@ public enum ResultCode {
     // 成功
     RESULT_SUCCESS(200, "SUCCESS"),
     // 失败
-    RESULT_FAIL(10000, "FAIL"),
+    RESULT_FAIL(20000, "FAIL"),
     // 提示
-    RESULT_HINT(10001, "PROMPT"),
+    RESULT_HINT(20001, "PROMPT"),
     // 警告
-    RESULT_WARNING(10002, "WARNING"),
+    RESULT_WARNING(20002, "WARNING"),
     // 错误
-    RESULT_ERROR(500, "ERROR");
+    RESULT_ERROR(20500, "ERROR");
 
     private int code;
     private String message;
