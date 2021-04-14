@@ -1,6 +1,7 @@
 package com.fuqiang.basecommon.config;
 
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,7 +20,8 @@ import java.util.Properties;
  * Version 0.0.1.RELEASE
  */
 @Configuration
-public class PageHelperConfig {
+@Slf4j
+public class PageHelperConfiguration {
 
     @Bean
     public PageHelper pageHelper() {
@@ -31,6 +33,7 @@ public class PageHelperConfig {
         properties.setProperty("helperDialect", "mysql");    //配置mysql数据库的方言
         properties.setProperty("supportMethodsArguments", "true");
         pageHelper.setProperties(properties);
+        log.info("PageHelper Init Successful...");
         return pageHelper;
     }
 }
