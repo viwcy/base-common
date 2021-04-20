@@ -15,12 +15,17 @@ package com.fuqiang.basecommon.constant;
 public class GlobalRedisPrefix {
 
     /**
-     * domain服务
+     * domain.
      */
     public static final String DOMAIN = "domain:";
     /**
-     * user_server服务
+     * user_server。
      */
     public static final String USER_SERVER = "user_server:";
+
+    /**
+     * goods_server.
+     */
+    public static final String GOODS_SERVER = "goods_server:";
 
 }

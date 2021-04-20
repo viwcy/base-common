@@ -31,13 +31,13 @@ public class GlobalExceptionHandler {
         //业务异常
         if (e instanceof BusinessException) {
             BusinessException ex = (BusinessException) e;
-            log.error("Request path：[{}]，BusinessException：{}", request.getRequestURI(), ex.getMessage());
+            log.error("Request path = [{}]，Error Message = [{}]", request.getRequestURI(), ex.getMessage());
             return new ResultEntity<>(ExceptionEnum.BusinessException.getCode(), ex.getMessage(), null);
         } else if (e instanceof NullPointerException) {
-            log.error("Request path：[{}]，NPE：{}", request.getRequestURI(), e.getMessage());
-            return new ResultEntity<>(ExceptionEnum.NullPointerException.getCode(), e.getMessage(), null);
+            log.error("Request path = [{}]，Error Message = [{}]", request.getRequestURI(), e.toString());
+            return new ResultEntity<>(ExceptionEnum.NullPointerException.getCode(), e.toString(), null);
         } else {
-            log.error("Request path：[{}]，System error：{}", request.getRequestURI(), e.getMessage());
+            log.error("Request path = [{}]，Error Message = [{}]", request.getRequestURI(), e.getMessage());
             return new ResultEntity<>(ExceptionEnum.SystemException.getCode(), e.getMessage(), null);
         }
     }
