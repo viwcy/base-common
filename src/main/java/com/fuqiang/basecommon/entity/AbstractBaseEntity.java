@@ -29,7 +29,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public abstract class BaseEntity<T extends BaseEntity<T>> extends Model<T> implements Serializable {
+public abstract class AbstractBaseEntity<T extends AbstractBaseEntity<T>> extends Model<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
