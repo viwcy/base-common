@@ -28,4 +28,9 @@ public class GlobalRedisPrefix {
      */
     public static final String GOODS_SERVER = "goods_server:";
 
+    /**
+     * pay_server.
+     */
+    public static final String PAY_SERVER = "pay_server:";
+
 }
