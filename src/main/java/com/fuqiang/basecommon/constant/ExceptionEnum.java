@@ -18,11 +18,13 @@ import lombok.Getter;
 public enum ExceptionEnum {
 
     //业务异常
-    BusinessException(30001, "BusinessException"),
+    BusinessException(401, "BusinessException"),
     //NPE
-    NullPointerException(30002, "NullPointerException"),
+    NullPointerException(500, "NullPointerException"),
+    //数据异常
+    ArithmeticException(500, "ArithmeticException"),
     //系统异常
-    SystemException(30500, "System error");
+    SystemException(501, "System error");
 
     private int code;
     private String message;

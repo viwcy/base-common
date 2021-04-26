@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * TODO //、、在Controller层进行异常拦截和包装，给前端返回
@@ -26,19 +25,19 @@ import javax.servlet.http.HttpServletResponse;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
-    public ResultEntity<?> exceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception e) {
+    public ResultEntity<?> exceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
+        log.error("Request path = [{}]，Error Message = [{}]", request.getRequestURI(), e.toString());
         //业务异常
         if (e instanceof BusinessException) {
             BusinessException ex = (BusinessException) e;
-            log.error("Request path = [{}]，Error Message = [{}]", request.getRequestURI(), ex.getMessage());
             return new ResultEntity<>(ExceptionEnum.BusinessException.getCode(), ex.getMessage(), null);
         } else if (e instanceof NullPointerException) {
-            log.error("Request path = [{}]，Error Message = [{}]", request.getRequestURI(), e.toString());
             return new ResultEntity<>(ExceptionEnum.NullPointerException.getCode(), e.toString(), null);
+        } else if (e instanceof ArithmeticException) {
+            return new ResultEntity<>(ExceptionEnum.ArithmeticException.getCode(), e.toString(), null);
         } else {
-            log.error("Request path = [{}]，Error Message = [{}]", request.getRequestURI(), e.getMessage());
-            return new ResultEntity<>(ExceptionEnum.SystemException.getCode(), e.getMessage(), null);
+            return new ResultEntity<>(ExceptionEnum.SystemException.getCode(), e.toString(), null);
         }
     }
 

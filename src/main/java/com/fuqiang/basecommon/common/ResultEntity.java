@@ -3,6 +3,8 @@ package com.fuqiang.basecommon.common;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 
+import java.io.Serializable;
+
 /**
  * TODO //
  *
@@ -15,7 +17,9 @@ import org.apache.commons.lang3.time.FastDateFormat;
  * Author  FQ
  * Version 0.0.1.RELEASE
  */
-public class ResultEntity<T> {
+public class ResultEntity<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static final FastDateFormat FAST_DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-mm HH:mm:ss");
 
