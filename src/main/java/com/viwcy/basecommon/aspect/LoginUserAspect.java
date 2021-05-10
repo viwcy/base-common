@@ -1,7 +1,7 @@
 package com.viwcy.basecommon.aspect;
 
 import com.viwcy.basecommon.constant.LoginUserEnum;
-import com.fuqiang.jwtcommon.util.JwtUtil;
+import com.viwcy.jwtcommon.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
