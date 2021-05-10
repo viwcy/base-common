@@ -1,4 +1,4 @@
-package com.fuqiang.basecommon.exception;
+package com.viwcy.basecommon.exception;
 
 /**
  * TODO //业务异常，对外抛出，实行全局捕获

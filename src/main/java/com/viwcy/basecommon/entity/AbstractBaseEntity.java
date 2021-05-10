@@ -1,13 +1,11 @@
-package com.fuqiang.basecommon.entity;
+package com.viwcy.basecommon.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -29,6 +27,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@EqualsAndHashCode
+@ToString
 public abstract class AbstractBaseEntity<T extends AbstractBaseEntity<T>> extends Model<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;

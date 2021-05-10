@@ -1,6 +1,6 @@
-package com.fuqiang.basecommon.aspect;
+package com.viwcy.basecommon.aspect;
 
-import com.fuqiang.basecommon.constant.LoginUserEnum;
+import com.viwcy.basecommon.constant.LoginUserEnum;
 import com.fuqiang.jwtcommon.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -37,7 +37,7 @@ public class LoginUserAspect {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Pointcut("@annotation(com.fuqiang.basecommon.aspect.LoginUser)")
+    @Pointcut("@annotation(com.viwcy.basecommon.aspect.LoginUser)")
     public void pointCut() {
     }
 

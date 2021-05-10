@@ -1,4 +1,4 @@
-package com.fuqiang.basecommon.constant;
+package com.viwcy.basecommon.constant;
 
 /**
  * TODO //、、redis缓存服务前缀，以服务名称开头，其余以业务为准

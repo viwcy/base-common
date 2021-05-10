@@ -1,4 +1,4 @@
-package com.fuqiang.basecommon.common;
+package com.viwcy.basecommon.common;
 
 /**
  * TODO //

@@ -1,4 +1,4 @@
-package com.fuqiang.basecommon.config;
+package com.viwcy.basecommon.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;

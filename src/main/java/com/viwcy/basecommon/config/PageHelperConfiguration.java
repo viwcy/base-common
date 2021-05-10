@@ -1,4 +1,4 @@
-package com.fuqiang.basecommon.config;
+package com.viwcy.basecommon.config;
 
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;

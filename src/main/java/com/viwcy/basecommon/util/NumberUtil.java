@@ -1,7 +1,7 @@
-package com.fuqiang.basecommon.util;
+package com.viwcy.basecommon.util;
 
-import com.fuqiang.basecommon.constant.NumberEnum;
-import com.fuqiang.basecommon.exception.BaseException;
+import com.viwcy.basecommon.constant.NumberEnum;
+import com.viwcy.basecommon.exception.BaseException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,7 +140,7 @@ public class NumberUtil implements Serializable {
             return BRAND_PREFIX + randomNumber(length - 1);
         } else if (prefix.length() >= length) {
             //prefix长度不能大于等于length值
-            throw new BaseException("The prefix length must not be greater than or equal to the length value");
+            throw new BaseException("The prefix length must not be greater than or equal to the length value.");
         } else {
             return prefix + randomNumber(length - prefix.length());
         }
@@ -157,7 +157,7 @@ public class NumberUtil implements Serializable {
             return CLASSIFY_PREFIX + randomNumber(length - 1);
         } else if (prefix.length() >= length) {
             //prefix长度不能大于等于length值
-            throw new BaseException("The prefix length must not be greater than or equal to the length value");
+            throw new BaseException("The prefix length must not be greater than or equal to the length value.");
         } else {
             return prefix + randomNumber(length - prefix.length());
         }
@@ -174,7 +174,7 @@ public class NumberUtil implements Serializable {
             return randomNumber(length);
         } else if (prefix.length() >= length) {
             //prefix长度不能大于等于length值
-            throw new BaseException("The prefix length must not be greater than or equal to the length value");
+            throw new BaseException("The prefix length must not be greater than or equal to the length value.");
         } else {
             return prefix + randomNumber(length);
         }
@@ -214,7 +214,7 @@ public class NumberUtil implements Serializable {
             String substring = number.substring(8, 17 - value);
             return convertValue(9 - value, Long.parseLong(substring));
         } else {
-            throw new BaseException("The value is not supported，value：{1,2,3,4,5}");
+            throw new BaseException("The value is not supported，value = [1,2,3,4,5]");
         }
     }
 
@@ -257,7 +257,7 @@ public class NumberUtil implements Serializable {
         }
 
         if (chars1.length < length) {
-            throw new BaseException("The value length must not be greater than the MAC address length: " + chars1.length);
+            throw new BaseException("The value length must not be greater than the MAC address length = " + chars1.length);
         } else {
             //随机从MAC地址的ASCII编码中取值length位
             char[] chars2 = temp.toString().toCharArray();

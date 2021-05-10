@@ -1,4 +1,4 @@
-package com.fuqiang.basecommon.exception;
+package com.viwcy.basecommon.exception;
 
 /**
  * TODO //

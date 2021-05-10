@@ -1,7 +1,7 @@
-package com.fuqiang.basecommon.exception;
+package com.viwcy.basecommon.exception;
 
-import com.fuqiang.basecommon.common.ResultEntity;
-import com.fuqiang.basecommon.constant.ExceptionEnum;
+import com.viwcy.basecommon.common.ResultEntity;
+import com.viwcy.basecommon.constant.ExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

@@ -1,4 +1,4 @@
-package com.fuqiang.basecommon.common;
+package com.viwcy.basecommon.common;
 
 
 import org.apache.commons.lang3.time.FastDateFormat;

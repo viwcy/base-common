@@ -1,4 +1,4 @@
-package com.fuqiang.basecommon.constant;
+package com.viwcy.basecommon.constant;
 
 import lombok.Getter;
 

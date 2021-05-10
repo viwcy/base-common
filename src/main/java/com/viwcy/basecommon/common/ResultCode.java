@@ -1,7 +1,7 @@
-package com.fuqiang.basecommon.common;
+package com.viwcy.basecommon.common;
 
 /**
- * TODO //
+ * TODO //、、Controller层响应状态码
  *
  * <p> Title: ResultCode </p>
  * <p> Description: ResultCode </p>

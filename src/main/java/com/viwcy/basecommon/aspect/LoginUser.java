@@ -1,6 +1,6 @@
-package com.fuqiang.basecommon.aspect;
+package com.viwcy.basecommon.aspect;
 
-import com.fuqiang.basecommon.constant.LoginUserEnum;
+import com.viwcy.basecommon.constant.LoginUserEnum;
 
 import java.lang.annotation.*;
 
