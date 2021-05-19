@@ -1,6 +1,9 @@
 package com.viwcy.basecommon.aspect;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.viwcy.basecommon.constant.LoginUserEnum;
+import com.viwcy.basecommon.entity.UserEntity;
 import com.viwcy.jwtcommon.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -16,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * TODO //
@@ -46,50 +50,73 @@ public class LoginUserAspect {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
         LoginUser loginUser = method.getAnnotation(LoginUser.class);
+        UserEntity userEntity = JSONObject.parseObject(JSON.toJSONString(jwtUtil.getUserInfo()), UserEntity.class);
         if (LoginUserEnum.CREATE.equals(loginUser.type())) {
-            create(point);
+            create(point, userEntity);
         } else if (LoginUserEnum.UPDATE.equals(loginUser.type())) {
-            update(point);
+            update(point, userEntity);
         } else {
-            createAndUpdate(point);
+            createAndUpdate(point, userEntity);
         }
     }
 
-    private void create(JoinPoint point) {
+    private void create(JoinPoint point, UserEntity userEntity) {
         Object[] args = point.getArgs();
         if (args != null && args.length > 0) {
             Object argument = args[0];
             BeanWrapper beanWrapper = new BeanWrapperImpl(argument);
-            if (beanWrapper.isWritableProperty("createUser")) {
-                beanWrapper.setPropertyValue("createUser", jwtUtil.getUserId());
-            }
+            create(beanWrapper, userEntity);
             log.info("LoginUserAspect CREATE = {}", ToStringBuilder.reflectionToString(argument, ToStringStyle.SHORT_PREFIX_STYLE));
         }
     }
 
-    private void update(JoinPoint point) {
+    private void create(BeanWrapper beanWrapper, UserEntity userEntity) {
+        if (beanWrapper.isWritableProperty("createUser")) {
+            beanWrapper.setPropertyValue("createUser", userEntity.getId());
+        }
+        if (beanWrapper.isWritableProperty("createId")) {
+            beanWrapper.setPropertyValue("createId", userEntity.getId());
+        }
+        if (beanWrapper.isWritableProperty("createName")) {
+            beanWrapper.setPropertyValue("createName", userEntity.getNickname());
+        }
+        if (beanWrapper.isWritableProperty("createTime")) {
+            beanWrapper.setPropertyValue("createTime", new Date());
+        }
+    }
+
+    private void update(JoinPoint point, UserEntity userEntity) {
         Object[] args = point.getArgs();
         if (args != null && args.length > 0) {
             Object argument = args[0];
             BeanWrapper beanWrapper = new BeanWrapperImpl(argument);
-            if (beanWrapper.isWritableProperty("updateUser")) {
-                beanWrapper.setPropertyValue("updateUser", jwtUtil.getUserId());
-            }
+            update(beanWrapper, userEntity);
             log.info("LoginUserAspect UPDATE = {}", ToStringBuilder.reflectionToString(argument, ToStringStyle.SHORT_PREFIX_STYLE));
         }
     }
 
-    private void createAndUpdate(JoinPoint point) {
+    private void update(BeanWrapper beanWrapper, UserEntity userEntity) {
+        if (beanWrapper.isWritableProperty("updateUser")) {
+            beanWrapper.setPropertyValue("updateUser", userEntity.getId());
+        }
+        if (beanWrapper.isWritableProperty("updateId")) {
+            beanWrapper.setPropertyValue("updateId", userEntity.getId());
+        }
+        if (beanWrapper.isWritableProperty("updateName")) {
+            beanWrapper.setPropertyValue("updateName", userEntity.getNickname());
+        }
+        if (beanWrapper.isWritableProperty("updateTime")) {
+            beanWrapper.setPropertyValue("updateTime", new Date());
+        }
+    }
+
+    private void createAndUpdate(JoinPoint point, UserEntity userEntity) {
         Object[] args = point.getArgs();
         if (args != null && args.length > 0) {
             Object argument = args[0];
             BeanWrapper beanWrapper = new BeanWrapperImpl(argument);
-            if (beanWrapper.isWritableProperty("createUser")) {
-                beanWrapper.setPropertyValue("createUser", jwtUtil.getUserId());
-            }
-            if (beanWrapper.isWritableProperty("updateUser")) {
-                beanWrapper.setPropertyValue("updateUser", jwtUtil.getUserId());
-            }
+            create(beanWrapper, userEntity);
+            update(beanWrapper, userEntity);
             log.info("LoginUserAspect CREATE AND UPDATE = {}", ToStringBuilder.reflectionToString(argument, ToStringStyle.SHORT_PREFIX_STYLE));
         }
     }
