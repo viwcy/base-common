@@ -12,6 +12,7 @@ import javax.xml.bind.DatatypeConverter;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
 
@@ -74,7 +75,7 @@ public class NumberUtil implements Serializable {
         String result;
         Object obj = redisTemplate.opsForValue().get(NumberEnum.getName(value) + ":");
 
-        String formatDate = ORDER_FAST_DATE_FORMAT.format(new Date());
+        String formatDate = ORDER_FAST_DATE_FORMAT.format(LocalDateTime.now());
         String macNo = "";
         try {
             macNo = macNo(macLength);
@@ -93,7 +94,7 @@ public class NumberUtil implements Serializable {
             //日期
             String date = number.substring(0, 8);
 
-            if (ORDER_FAST_DATE_FORMAT.format(new Date()).equals(date)) {
+            if (ORDER_FAST_DATE_FORMAT.format(LocalDateTime.now()).equals(date)) {
                 if (StringUtils.isBlank(prefix)) {
                     result = formatDate + serialNo(number, value) + macNo;
                 } else {
@@ -126,7 +127,7 @@ public class NumberUtil implements Serializable {
         if (length < 18) {
             throw new BaseException("The length value cannot be less than 18");
         }
-        return TRADING_FAST_DATE_FORMAT.format(new Date()) + randomNumber(length - 17);
+        return TRADING_FAST_DATE_FORMAT.format(LocalDateTime.now()) + randomNumber(length - 17);
     }
 
     /**
