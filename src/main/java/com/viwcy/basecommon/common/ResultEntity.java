@@ -4,6 +4,7 @@ package com.viwcy.basecommon.common;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * TODO //
@@ -21,7 +22,7 @@ public class ResultEntity<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final FastDateFormat FAST_DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-mm HH:mm:ss");
+    private static final FastDateFormat FAST_DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 
     private long timestamp = System.currentTimeMillis();
     private String date = FAST_DATE_FORMAT.format(timestamp);

@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * TODO //
@@ -70,21 +70,6 @@ public class LoginUserAspect {
         }
     }
 
-    private void create(BeanWrapper beanWrapper, UserEntity userEntity) {
-        if (beanWrapper.isWritableProperty("createUser")) {
-            beanWrapper.setPropertyValue("createUser", userEntity.getId());
-        }
-        if (beanWrapper.isWritableProperty("createId")) {
-            beanWrapper.setPropertyValue("createId", userEntity.getId());
-        }
-        if (beanWrapper.isWritableProperty("createName")) {
-            beanWrapper.setPropertyValue("createName", userEntity.getNickname());
-        }
-        if (beanWrapper.isWritableProperty("createTime")) {
-            beanWrapper.setPropertyValue("createTime", new Date());
-        }
-    }
-
     private void update(JoinPoint point, UserEntity userEntity) {
         Object[] args = point.getArgs();
         if (args != null && args.length > 0) {
@@ -92,21 +77,6 @@ public class LoginUserAspect {
             BeanWrapper beanWrapper = new BeanWrapperImpl(argument);
             update(beanWrapper, userEntity);
             log.info("LoginUserAspect UPDATE = {}", ToStringBuilder.reflectionToString(argument, ToStringStyle.SHORT_PREFIX_STYLE));
-        }
-    }
-
-    private void update(BeanWrapper beanWrapper, UserEntity userEntity) {
-        if (beanWrapper.isWritableProperty("updateUser")) {
-            beanWrapper.setPropertyValue("updateUser", userEntity.getId());
-        }
-        if (beanWrapper.isWritableProperty("updateId")) {
-            beanWrapper.setPropertyValue("updateId", userEntity.getId());
-        }
-        if (beanWrapper.isWritableProperty("updateName")) {
-            beanWrapper.setPropertyValue("updateName", userEntity.getNickname());
-        }
-        if (beanWrapper.isWritableProperty("updateTime")) {
-            beanWrapper.setPropertyValue("updateTime", new Date());
         }
     }
 
@@ -121,4 +91,33 @@ public class LoginUserAspect {
         }
     }
 
+    private void create(BeanWrapper beanWrapper, UserEntity userEntity) {
+        if (beanWrapper.isWritableProperty("createUser")) {
+            beanWrapper.setPropertyValue("createUser", userEntity.getId());
+        }
+        if (beanWrapper.isWritableProperty("createId")) {
+            beanWrapper.setPropertyValue("createId", userEntity.getId());
+        }
+        if (beanWrapper.isWritableProperty("createName")) {
+            beanWrapper.setPropertyValue("createName", userEntity.getNickname());
+        }
+        if (beanWrapper.isWritableProperty("createTime")) {
+            beanWrapper.setPropertyValue("createTime", LocalDateTime.now());
+        }
+    }
+
+    private void update(BeanWrapper beanWrapper, UserEntity userEntity) {
+        if (beanWrapper.isWritableProperty("updateUser")) {
+            beanWrapper.setPropertyValue("updateUser", userEntity.getId());
+        }
+        if (beanWrapper.isWritableProperty("updateId")) {
+            beanWrapper.setPropertyValue("updateId", userEntity.getId());
+        }
+        if (beanWrapper.isWritableProperty("updateName")) {
+            beanWrapper.setPropertyValue("updateName", userEntity.getNickname());
+        }
+        if (beanWrapper.isWritableProperty("updateTime")) {
+            beanWrapper.setPropertyValue("updateTime", LocalDateTime.now());
+        }
+    }
 }
