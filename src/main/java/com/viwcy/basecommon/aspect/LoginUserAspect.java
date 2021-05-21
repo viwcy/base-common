@@ -41,6 +41,8 @@ public class LoginUserAspect {
     @Autowired
     private JwtUtil jwtUtil;
 
+    private final LocalDateTime date = LocalDateTime.now();
+
     @Pointcut("@annotation(com.viwcy.basecommon.aspect.LoginUser)")
     public void pointCut() {
     }
@@ -102,7 +104,7 @@ public class LoginUserAspect {
             beanWrapper.setPropertyValue("createName", userEntity.getNickname());
         }
         if (beanWrapper.isWritableProperty("createTime")) {
-            beanWrapper.setPropertyValue("createTime", LocalDateTime.now());
+            beanWrapper.setPropertyValue("createTime", date);
         }
     }
 
@@ -117,7 +119,7 @@ public class LoginUserAspect {
             beanWrapper.setPropertyValue("updateName", userEntity.getNickname());
         }
         if (beanWrapper.isWritableProperty("updateTime")) {
-            beanWrapper.setPropertyValue("updateTime", LocalDateTime.now());
+            beanWrapper.setPropertyValue("updateTime", date);
         }
     }
 }
