@@ -34,17 +34,15 @@ public class ESBaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    // 指定存储格式
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss", iso = DateTimeFormat.ISO.TIME)
+    // LocalDateTime指定存储格式，必须使用uuuu-MM-dd HH:mm:ss，不能使用yyyy，否则查询报错
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "uuuu-MM-dd HH:mm:ss")
     // 数据格式转换，并加上8小时进行存储
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    // 指定存储格式
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
-    // 数据格式转换，并加上8小时进行存储
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss", iso = DateTimeFormat.ISO.TIME)
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "uuuu-MM-dd HH:mm:ss")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime updateTime;
 
