@@ -43,4 +43,7 @@ public class ESBaseEntity implements Serializable {
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "uuuu-MM-dd HH:mm:ss")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime updateTime;
+
+    private int page = 1;
+    private int size = 10;
 }
