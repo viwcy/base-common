@@ -49,7 +49,7 @@ public class RedisTemplateConfiguration {
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.setHashKeySerializer(redisSerializer);
         redisTemplate.afterPropertiesSet();
-        log.info("RedisTemplate Init Successful...");
+        log.info("RedisTemplate init successful");
         return redisTemplate;
     }
 
@@ -57,7 +57,7 @@ public class RedisTemplateConfiguration {
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
         stringRedisTemplate.setConnectionFactory(redisConnectionFactory);
-        log.info("StringRedisTemplate Init Successful...");
+        log.info("StringRedisTemplate init successful");
         return stringRedisTemplate;
     }
 

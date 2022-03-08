@@ -34,23 +34,11 @@ public class BaseController {
     }
 
     public <T> ResultEntity<T> fail() {
-        return new ResultEntity(ResultCode.RESULT_FAIL.getCode(), ResultCode.RESULT_FAIL.getMessage(), null);
+        return new ResultEntity(ResultCode.RESULT_FAILURE.getCode(), ResultCode.RESULT_FAILURE.getMessage(), null);
     }
 
     public <T> ResultEntity<T> fail(String message) {
-        return new ResultEntity(ResultCode.RESULT_FAIL.getCode(), message, null);
-    }
-
-    public <T> ResultEntity<T> hint(String message) {
-        return new ResultEntity(ResultCode.RESULT_HINT.getCode(), message, null);
-    }
-
-    public <T> ResultEntity<T> error(String message) {
-        return new ResultEntity(ResultCode.RESULT_ERROR.getCode(), message, null);
-    }
-
-    public <T> ResultEntity<T> warning(String message) {
-        return new ResultEntity(ResultCode.RESULT_WARNING.getCode(), message, null);
+        return new ResultEntity(ResultCode.RESULT_FAILURE.getCode(), message, null);
     }
 
 }

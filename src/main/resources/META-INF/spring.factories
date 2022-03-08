@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.viwcy.basecommon.config.IDWorkerAutoConfiguration,\
+com.viwcy.basecommon.config.JwtAutoConfiguration

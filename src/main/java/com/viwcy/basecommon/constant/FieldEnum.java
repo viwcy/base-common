@@ -15,20 +15,9 @@ import lombok.Getter;
  * Version 0.0.1.RELEASE
  */
 @Getter
-public enum LoginUserEnum {
+public enum FieldEnum {
 
-    /**
-     * create_user
-     */
     CREATE,
 
-    /**
-     * update_user
-     */
-    UPDATE,
-
-    /**
-     * create_user and update_user
-     */
-    CREATE_AND_UPDATE
+    UPDATE
 }

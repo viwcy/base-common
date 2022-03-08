@@ -1,5 +1,7 @@
 package com.viwcy.basecommon.exception;
 
+import com.viwcy.basecommon.common.ResultCode;
+
 /**
  * TODO //业务异常，对外抛出，实行全局捕获
  *
@@ -18,7 +20,7 @@ public class BusinessException extends BaseException {
     }
 
     public BusinessException(String message) {
-        super(message);
+        super(ResultCode.RESULT_FAILURE.getCode(), message);
     }
 
     public BusinessException(Integer code, String message) {

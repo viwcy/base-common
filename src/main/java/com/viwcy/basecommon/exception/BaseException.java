@@ -1,5 +1,7 @@
 package com.viwcy.basecommon.exception;
 
+import com.viwcy.basecommon.common.ResultCode;
+
 /**
  * TODO //
  *
@@ -21,6 +23,7 @@ public class BaseException extends RuntimeException {
 
     public BaseException(String message) {
         super(message);
+        this.code = ResultCode.RESULT_FAILURE.getCode();
     }
 
     public BaseException(Integer code, String message) {

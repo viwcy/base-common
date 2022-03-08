@@ -33,7 +33,7 @@ public class PageHelperConfiguration {
         properties.setProperty("helperDialect", "mysql");    //配置mysql数据库的方言
         properties.setProperty("supportMethodsArguments", "true");
         pageHelper.setProperties(properties);
-        log.info("PageHelper Init Successful...");
+        log.info("PageHelper init successful");
         return pageHelper;
     }
 }

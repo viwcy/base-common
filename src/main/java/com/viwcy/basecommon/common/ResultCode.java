@@ -17,13 +17,7 @@ public enum ResultCode {
     // 成功
     RESULT_SUCCESS(200, "SUCCESS"),
     // 失败
-    RESULT_FAIL(20000, "FAIL"),
-    // 提示
-    RESULT_HINT(20001, "PROMPT"),
-    // 警告
-    RESULT_WARNING(20002, "WARNING"),
-    // 错误
-    RESULT_ERROR(20500, "ERROR");
+    RESULT_FAILURE(500, "ERROR");
 
     private int code;
     private String message;
