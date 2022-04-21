@@ -1,6 +1,7 @@
 package com.viwcy.basecommon.util;
 
 import com.viwcy.basecommon.config.IDWorkerProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * TODO  Copyright (c) yun lu 2021 Fau (viwcy4611@gmail.com), ltd
@@ -78,9 +79,14 @@ public class IDWorker {
      */
     private long lastTimestamp = -1L;
 
+    @Autowired
+    private IDWorkerProperties properties;
+
     /**
-     * @param workerId     工作ID (0~31)
-     * @param datacenterId 数据中心ID (0~31)
+     * @param
+     * @return {@link }
+     * @throws
+     * @author Fau  2022/3/23 15:58
      */
     private IDWorker(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {

@@ -1,6 +1,7 @@
 package com.viwcy.basecommon.config;
 
 import com.viwcy.basecommon.util.IDWorker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,11 +17,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties({IDWorkerProperties.class})
 public class IDWorkerAutoConfiguration {
 
-    private final IDWorkerProperties properties;
-
-    public IDWorkerAutoConfiguration(IDWorkerProperties properties) {
-        this.properties = properties;
-    }
+    @Autowired
+    private IDWorkerProperties properties;
 
     @Bean
     @ConditionalOnMissingBean

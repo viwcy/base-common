@@ -1,9 +1,12 @@
 package com.viwcy.basecommon.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -22,8 +25,6 @@ import java.util.Date;
  * Version 0.0.1.RELEASE
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @EqualsAndHashCode
 @ToString
@@ -33,10 +34,12 @@ public abstract class AbstractBaseEntity<T extends AbstractBaseEntity<T>> extend
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value = "create_time")
     private Date createTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value = "update_time")
     private Date updateTime;
 
     protected abstract Serializable pkVal();

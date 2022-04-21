@@ -10,8 +10,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-import reactor.util.annotation.Nullable;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -28,7 +29,6 @@ import java.util.Date;
  * Author  FQ
  * Version 0.0.1.RELEASE
  */
-//@ConfigurationProperties(prefix = "jwt.config")
 @Component
 @Slf4j
 public class JwtUtil {
@@ -39,13 +39,10 @@ public class JwtUtil {
     private static final FastDateFormat FAST_DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 
     private static volatile JwtUtil jwtUtil = null;
-    private final JwtProperties jwtProperties;
-    private final HttpServletRequest request;
-
-    private JwtUtil(JwtProperties jwtProperties, HttpServletRequest request) {
-        this.jwtProperties = jwtProperties;
-        this.request = request;
-    }
+    @Autowired
+    private JwtProperties jwtProperties;
+    @Autowired
+    private HttpServletRequest request;
 
     /**
      * @param
@@ -56,9 +53,10 @@ public class JwtUtil {
      * @date 2020/9/3 17:39
      * @author Fuqiang
      */
-    public final <T> JSONObject createJwt(@Nullable final T entity, @Nullable final String subject) {
+    public final JSONObject createJwt(@Nullable final User entity, @Nullable final String subject) {
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + jwtProperties.getExpire() * 60 * 1000L);
+        Date refreshExpireDate = new Date(2L * now.getTime());
         String jwt = Jwts.builder()
                 .claim("user", entity)
                 .setHeaderParam("typ", jwtProperties.getHeaderType())//类型
@@ -68,11 +66,21 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())//签名
                 .setNotBefore(now)//是一个时间戳，代表这个JWT生效的开始时间，意味着在这个时间之前验证JWT是会失败的
                 .compact();
+        String refreshJwt = Jwts.builder()
+                .claim("user", entity)
+                .setHeaderParam("typ", jwtProperties.getHeaderType())//类型
+                .setSubject(subject)//代表这个JWT的主体，相当于唯一标识
+                .setIssuedAt(now)//是一个时间戳，代表这个JWT的签发时间
+                .setExpiration(refreshExpireDate)//过期时间
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getRefreshSecret())//签名
+                .setNotBefore(now)//是一个时间戳，代表这个JWT生效的开始时间，意味着在这个时间之前验证JWT是会失败的
+                .compact();
         JSONObject json = new JSONObject();
-        json.put("_token", jwt);
-        json.put("_type", jwtProperties.getHeaderType());
-        json.put("_header", jwtProperties.getHeader());
-        json.put("_expire", FAST_DATE_FORMAT.format(expireDate));
+        json.put("access_token", jwt);
+        json.put("refresh_token", refreshJwt);
+        json.put("type", jwtProperties.getHeaderType());
+        json.put("header", jwtProperties.getHeader());
+        json.put("expire", FAST_DATE_FORMAT.format(expireDate));
         return json;
     }
 
@@ -88,33 +96,42 @@ public class JwtUtil {
     }
 
     /**
-     * @param object 入参类型
+     * 刷新jwt
+     */
+    public final JSONObject refreshJwt(@Nullable final String jwt, @Nullable final String subject) {
+        Claims body = Jwts.parser().setSigningKey(jwtProperties.getRefreshSecret()).parseClaimsJws(jwt.replace(jwtProperties.getPrefix() + " ", "")).getBody();
+        User user = JSON.parseObject(JSON.toJSONString(body.get("user")), User.class);
+        return createJwt(user, subject);
+    }
+
+    /**
+     * @param
      * @return {@link T}
      * @throws Exception
      * @author Fau  2022/2/24 10:20
      * TODO 请求头获取用户信息
      */
-    public final <T extends User> T getUser(@Nullable final Class<T> object) {
-        String jwt = request.getHeader("Authorization");
+    public final User getUser() {
 
+        String jwt = request.getHeader(jwtProperties.getHeader());
         if (StringUtils.isBlank(jwt)) {
             log.error("Request header[Authorization] for the user is blank");
             return null;
         }
         try {
             Object user = this.parsingJwt(jwt).get("user");
-            return JSON.parseObject(JSON.toJSONString(user), object);
+            return JSON.parseObject(JSON.toJSONString(user), User.class);
         } catch (Exception e) {
             log.error("jwt get the user information , e = " + e);
         }
         return null;
     }
 
-    public static final JwtUtil getInstance(JwtProperties jwtProperties, HttpServletRequest request) {
+    public static final JwtUtil getInstance() {
         if (jwtUtil == null) {
             synchronized (JwtUtil.class) {
                 if (jwtUtil == null) {
-                    jwtUtil = new JwtUtil(jwtProperties, request);
+                    jwtUtil = new JwtUtil();
                 }
             }
         }

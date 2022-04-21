@@ -14,17 +14,19 @@ import java.io.Serializable;
  */
 @Data
 @TableName("user")
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class User extends AbstractBaseEntity<User> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)
     private Long id;
+    @TableField(value = "user_name")
     private String userName;
+    @TableField(value = "head_photo")
     private String headPhoto;
     private String phone;
     private String email;

@@ -1,5 +1,8 @@
 package com.viwcy.basecommon.config;
 
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +24,7 @@ import java.util.Properties;
  */
 @Configuration
 @Slf4j
-public class PageHelperConfiguration {
+public class PagingConfiguration {
 
     @Bean
     public PageHelper pageHelper() {
@@ -35,5 +38,12 @@ public class PageHelperConfiguration {
         pageHelper.setProperties(properties);
         log.info("PageHelper init successful");
         return pageHelper;
+    }
+
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
     }
 }

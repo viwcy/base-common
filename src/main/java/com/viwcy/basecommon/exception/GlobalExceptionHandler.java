@@ -1,6 +1,7 @@
 package com.viwcy.basecommon.exception;
 
 import com.viwcy.basecommon.common.ResultEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +15,14 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.support.WebExchangeBindException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * TODO //、、在Controller层进行异常拦截和包装，给前端返回
@@ -130,13 +136,36 @@ public class GlobalExceptionHandler {
         return ResultEntity.fail("参数非法，请检查传入数据格式");
     }
 
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResultEntity exceptionHandler(MethodArgumentNotValidException e) {
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({WebExchangeBindException.class})
+    public ResultEntity exceptionHandler(WebExchangeBindException e) {
+
         log.error("Error path: " + request.getRequestURL());
         log.error("Global catch exception: ", e);
-        FieldError fieldError = e.getBindingResult().getFieldError();
-        String message = fieldError != null ? String.format("%s%s", fieldError.getField(), fieldError.getDefaultMessage()) : e.getMessage();
-        return ResultEntity.fail(message);
+        return responseException(e, null);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResultEntity exceptionHandler(MethodArgumentNotValidException e) {
+
+        log.error("Error path: " + request.getRequestURL());
+        log.error("Global catch exception: ", e);
+        return responseException(null, e);
+    }
+
+    private final ResultEntity responseException(WebExchangeBindException e, MethodArgumentNotValidException e1) {
+
+        List<FieldError> fieldErrors;
+        if (Objects.isNull(e)) {
+            fieldErrors = e1.getBindingResult().getFieldErrors();
+        } else {
+            fieldErrors = e.getBindingResult().getFieldErrors();
+        }
+        List<String> msgList = fieldErrors.stream()
+                .map(o -> o.getDefaultMessage())
+                .collect(Collectors.toList());
+        String messages = StringUtils.join(msgList.toArray(), ";");
+        return ResultEntity.fail(HttpStatus.BAD_REQUEST.value(), messages);
+    }
 }
